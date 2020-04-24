@@ -2,6 +2,12 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Disables ctrl-s and ctrl-q
+[[ $- == *i* ]] && stty -ixon
+
+#cd into directory by typing its name
+shopt -s autocd
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -115,6 +121,21 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/hellraizer/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/hellraizer/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/hellraizer/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/hellraizer/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 #!/usr/bin/env bash
 
@@ -239,4 +260,5 @@ export PS1;
 PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
 
+export PATH="$PATH:~/development/flutter/bin"
 alias jn='jupyter notebook'
