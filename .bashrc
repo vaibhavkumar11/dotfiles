@@ -1,12 +1,20 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # Disables ctrl-s and ctrl-q
 [[ $- == *i* ]] && stty -ixon
 
 #cd into directory by typing its name
 shopt -s autocd
+# If there are multiple matches for completion, Tab should cycle through them
+
+[[ $- = *i* ]] && bind 'TAB':menu-complete
+
+# Display a list of the matching files
+
+[[ $- = *i* ]] && bind "set show-all-if-ambiguous on"
+
+# Perform partial completion on the first Tab press,
+# only start cycling full results on the second Tab press
+
+[[ $- = *i* ]] && bind "set menu-complete-display-prefix on"
 
 # If not running interactively, don't do anything
 case $- in
@@ -262,3 +270,17 @@ export PS2;
 
 export PATH="$PATH:~/development/flutter/bin"
 alias jn='jupyter notebook'
+
+sci(){
+		#!/bin/bash
+		# Takes DOI strings as arguments for wget to first get SchHub info page, then extract pdf url, and then get that pdf!
+		# usage: 
+		# Get a single pdf with: ./sciHub.sh 10.1145/1375761.1375762 
+		# USe as many DOIs as arguents as you'd like :)
+		# to pass a list of DOI strings as arguments to this script you could use: "cat DOIS.txt | xargs ./sciHub.sh"
+
+		for DOI in "$@"
+		do
+				curl https://sci-hub.tw/$DOI | grep -Eom1 '\/\/[^ ]+\.pdf' | wget --base="https://" -i -
+		done
+}
