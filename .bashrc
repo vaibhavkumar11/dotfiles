@@ -281,6 +281,6 @@ sci(){
 
 		for DOI in "$@"
 		do
-				curl https://sci-hub.tw/$DOI | grep -Eom1 '\/\/[^ ]+\.pdf' | wget --base="https://" -i -
+				wget --no-check-certificate https://sci-hub.tw/$DOI -qO -| grep -Eom1 '\/\/[^ ]+\.pdf' | wget --no-check-certificate --base="https://" -i -
 		done
 }

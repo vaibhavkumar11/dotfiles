@@ -1,56 +1,20 @@
 syntax on
-
-" Disable the default Vim startup message.
-set shortmess+=I
-
+set shortmess+=I " Removes starting cim message
 set number
 set relativenumber
 set tabstop=4 softtabstop=4
-
-" Always show the status line at the bottom, even if you only have one window open.
-set laststatus=2
-
-" The backspace key has slightly unintuitive behavior by default. For example,
-" by default, you can't backspace before the insertion point set with 'i'.
-" This configuration makes backspace behave more reasonably, in that you can
-" backspace over anything.
-set backspace=indent,eol,start
-
-" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
-" shown in any window) that has unsaved changes. This is to prevent you from "
-" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
-" hidden buffers helpful enough to disable this protection. See `:help hidden`
-" for more information on this.
-set hidden
-
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
-set ignorecase
+set laststatus=2  " Show status line at bottom
+set backspace=indent,eol,start " Backspace over anything
+set hidden 
+set ignorecase " Case insenstive
 set smartcase
-
-" Enable searching as you type, rather than waiting till you press enter.
-set incsearch
-
+set incsearch " Search as you type
 set nowrap
 set smartindent
-
-" Unbind some useless/annoying default key bindings.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-
-" Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
-
-" Enable mouse support. You should avoid relying on this too much, but it can
-" sometimes be convenient.
+set noerrorbells visualbell t_vb=  " Disable audible bell because it's annoying.
 set mouse+=a
 
-" Try to prevent bad habits like using the arrow keys for movement. This is
-" not the only possible bad habit. For example, holding down the h/j/k/l keys
-" for movement, rather than using more efficient movement commands, is also a
-" bad habit. The former is enforceable through a .vimrc, while we don't know
-" how to prevent the latter.
-" Do this in normal mode...
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
@@ -67,6 +31,11 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
+
+" C++ specific
+nmap <leader>y ggVG"+y''
+map <F5> :<C-U>!g++ -O2 -DLOCAL -std=c++11 -Wall -Wextra -Wno-unused-result -static %:r.cpp -o %:r<CR>
+map <F9> :<C-U>!./%:r<CR>
 
 " Plugin Manager
 call plug#begin('~/.vim/plugged')
