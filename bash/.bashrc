@@ -208,6 +208,20 @@ prompt_git() {
 	fi;
 }
 
+sci(){
+		#!/bin/bash
+		# Takes DOI strings as arguments for wget to first get SchHub info page, then extract pdf url, and then get that pdf!
+		# usage: 
+		# Get a single pdf with: ./sciHub.sh 10.1145/1375761.1375762 
+		# USe as many DOIs as arguents as you'd like :)
+		# to pass a list of DOI strings as arguments to this script you could use: "cat DOIS.txt | xargs ./sciHub.sh"
+
+		for DOI in "$@"
+		do
+				wget --no-check-certificate https://sci-hub.tw/$DOI -qO -| grep -Eom1 '\/\/[^ ]+\.pdf' | wget --no-check-certificate --base="https://" -i -
+		done
+}
+
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
@@ -271,16 +285,6 @@ export PS2;
 export PATH="$PATH:~/development/flutter/bin"
 alias jn='jupyter notebook'
 
-sci(){
-		#!/bin/bash
-		# Takes DOI strings as arguments for wget to first get SchHub info page, then extract pdf url, and then get that pdf!
-		# usage: 
-		# Get a single pdf with: ./sciHub.sh 10.1145/1375761.1375762 
-		# USe as many DOIs as arguents as you'd like :)
-		# to pass a list of DOI strings as arguments to this script you could use: "cat DOIS.txt | xargs ./sciHub.sh"
-
-		for DOI in "$@"
-		do
-				wget --no-check-certificate https://sci-hub.tw/$DOI -qO -| grep -Eom1 '\/\/[^ ]+\.pdf' | wget --no-check-certificate --base="https://" -i -
-		done
-}
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
