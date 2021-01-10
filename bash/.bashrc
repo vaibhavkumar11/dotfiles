@@ -222,6 +222,12 @@ sci(){
 		done
 }
 
+tor(){
+		cd ~/tor
+		./start-tor-browser.desktop
+		cd -
+}
+
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
