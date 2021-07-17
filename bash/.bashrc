@@ -222,11 +222,6 @@ sci(){
 		done
 }
 
-tor(){
-		cd ~/tor
-		./start-tor-browser.desktop
-		cd -
-}
 
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
@@ -294,3 +289,12 @@ alias jn='jupyter notebook'
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
+
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+
+export SPARK_HOME="/opt/spark"
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PYSPARK_PYTHON="/usr/bin/python3"
+
+export PATH="/opt/apache-maven-3.6.3/bin:$PATH"
+export PATH="/opt/storm/bin:$PATH"
